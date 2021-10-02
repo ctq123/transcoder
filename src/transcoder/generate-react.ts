@@ -13,7 +13,13 @@ export async function transform(codeStr: string) {
       ObjectExpression: (path: any) => {
         if (path.parent.type === 'VariableDeclarator') {
           const {node} = path;
-          console.log(node.properties)
+          console.log("var", node.properties)
+        }
+      },
+      ObjectProperty: (path: any) => {
+        const {node} = path;
+        if (node.key.name === 'methods') {
+          console.log("methods", node.value.properties)
         }
       }
     });
